@@ -1,14 +1,13 @@
 version: "3.8"
 
 services:
-#  app:
-#    image: students:latest
-#    container_name: 'students'
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile
-#    ports:
-#      - '8080:8080'
+  app:
+    container_name: 'registration-flow-app'
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '127.0.0.1:8080:8080'
 
   postgres:
     container_name: postgres-keycloak
