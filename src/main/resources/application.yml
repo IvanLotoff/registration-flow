@@ -1,13 +1,14 @@
 spring:
   application.name: ${APPLICATION_NAME:spring-security-keycloak}
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5431/main_db
+    url: jdbc:postgresql://postgresMain/main_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     #database-platform: org.hibernate.dialect.PostgreSQLDialect
 

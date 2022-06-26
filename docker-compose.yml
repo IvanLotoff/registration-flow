@@ -8,6 +8,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - '127.0.0.1:8080:8080'
+    depends_on:
+      - postgresMain
+    networks:
+      - net
 
   postgres:
     container_name: postgres-keycloak
@@ -21,6 +25,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./pg-data/keycloak:/var/lib/postgresql/data
+    networks:
+      - net
 
   keycloak:
     image: jboss/keycloak
@@ -39,6 +45,8 @@ services:
       - postgres
     links:
       - "postgres:postgres"
+    networks:
+      - net
 
   postgresMain:
     container_name: postgres-main
@@ -47,11 +55,13 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: main_db
-    ports:
-      - "127.0.0.1:5431:5432"
+#    ports:
+#      - "127.0.0.1:5431:5432"
     restart: unless-stopped
     volumes:
       - ./pg-data/local:/var/lib/postgresql/data
+    networks:
+      - net
 
 #  prometheus:
 #    image: prom/prometheus:v2.24.1
@@ -72,3 +82,7 @@ services:
 #      - ./monitoring/grafana/config.monitoring
 #    depends_on:
 #      - prometheus
+
+networks:
+  net:
+    driver: bridge
