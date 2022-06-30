@@ -1,9 +1,9 @@
 spring:
   application.name: ${APPLICATION_NAME:spring-security-keycloak}
   datasource:
-    url: jdbc:postgresql://postgresMain/main_db
-    username: postgres
-    password: postgres
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -22,7 +22,7 @@ feign:
         loggerLevel: full
 logging.level.ru.ivan.registrationflow.superuser.openfeign: DEBUG
 superuser:
-  auth_url: http://127.0.0.1:8484/auth/realms/test_realm/protocol/openid-connect/token
-  users_url: http://127.0.0.1:8484/auth/admin/realms/test_realm/users
+  auth_url: http://keycloak:8080/auth/realms/test_realm/protocol/openid-connect/token
+  users_url: http://keycloak:8080/auth/admin/realms/test_realm/users
   mock_password: somemocktext
   client_id: login_app

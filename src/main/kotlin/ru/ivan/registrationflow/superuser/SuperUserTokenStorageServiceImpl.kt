@@ -9,16 +9,8 @@ import ru.ivan.registrationflow.superuser.abstraction.SuperUserTokenStorageServi
 @Component
 class SuperUserTokenStorageServiceImpl(private val superUserAccessTokenRepository: SuperUserAccessTokenRepository): SuperUserTokenStorageService {
 
-    @Transactional
     override fun saveAccessToken(token: String) {
-        // Здесь почему-то тригерится селект стейтмент
-        superUserAccessTokenRepository.deleteAll()
-        superUserAccessTokenRepository.save(
-            SuperUserAccessToken(
-                id = 0,
-                token = token
-            )
-        )
+        superUserAccessTokenRepository.updateAccessToken(token)
     }
 
     override fun getAccessToken() = superUserAccessTokenRepository

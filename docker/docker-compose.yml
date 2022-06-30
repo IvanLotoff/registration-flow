@@ -4,8 +4,12 @@ services:
   app:
     container_name: 'registration-flow-app'
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: ../.
+      dockerfile: docker/Dockerfile
+    environment:
+      DB_URL: jdbc:postgresql://postgresMain/main_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
     ports:
       - '8080:8081'
     depends_on:
@@ -43,7 +47,8 @@ services:
       KEYCLOAK_PASSWORD: admin
       KEYCLOAK_IMPORT: /tmp/realm.json
     ports:
-      - "8484:8443"
+#      - "8484:8443"
+      - "8484:8080"
     depends_on:
       - postgres
     volumes:
